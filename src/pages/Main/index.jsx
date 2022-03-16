@@ -1,8 +1,9 @@
 import React from 'react'
+import { Title } from './styles.js'
 
 function Main() {
   return (
-    <div>Main</div>
+    <Title>Main</Title>
   )
 }
 
