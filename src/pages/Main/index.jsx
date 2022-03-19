@@ -1,27 +1,31 @@
-import React, { useState } from 'react';
-import { Container, Form, SubmitBtn } from './styles';
-import { FaGithub, FaPlus } from 'react-icons/fa';
-import api from '../../services/api';
+import React, { useCallback, useState } from "react";
+import { Container, Form, SubmitBtn } from "./styles";
+import { FaGithub, FaPlus } from "react-icons/fa";
+import api from "../../services/api";
 
 function Main() {
-  const [newRepo, setNewRepo] = useState('');
+  const [newRepo, setNewRepo] = useState("");
   const [repositorios, setRepositorios] = useState([]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     setNewRepo(e.target.value);
-  }
+  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(e => {
+      e.preventDefault();
 
-    const response = await api.get(`repos/${newRepo}`);
+      async function submit() {
+        const response = await api.get(`repos/${newRepo}`);
 
-    const data = {
-      name: response.data.full_name,
-    }
+        const data = {
+          name: response.data.full_name,
+        };
 
-    setRepositorios([...repositorios, data]);
-  }
+        setRepositorios([...repositorios, data]);
+      }
+
+      submit();
+    }, [newRepo, repositorios]);
 
   return (
     <Container>
@@ -35,15 +39,15 @@ function Main() {
           type="text"
           placeholder="Adicionar repositórios"
           value={newRepo}
-          onChange={(e) => handleInputChange(e)}
+          onChange={e => handleInputChange(e)}
         />
 
         <SubmitBtn>
-          <FaPlus color='#fff' size={16} />
+          <FaPlus color="#fff" size={16} />
         </SubmitBtn>
       </Form>
-    </Container >
-  )
+    </Container>
+  );
 }
 
 export default Main;

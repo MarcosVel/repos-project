@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   max-width: 700px;
@@ -12,13 +12,12 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     font-size: 20px;
-    
+
     svg {
       margin-right: 8px;
     }
   }
-
-`
+`;
 
 export const Form = styled.form`
   display: flex;
@@ -31,10 +30,10 @@ export const Form = styled.form`
     border-radius: 4px;
     font-size: 17px;
   }
-`
+`;
 
 export const SubmitBtn = styled.button.attrs({
-  type: 'submit'
+  type: "submit",
 })`
   display: flex;
   justify-content: center;
@@ -43,4 +42,4 @@ export const SubmitBtn = styled.button.attrs({
   border: 0;
   border-radius: 4px;
   padding: 10px;
-`
+`;
