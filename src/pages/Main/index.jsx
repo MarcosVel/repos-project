@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from "react";
-import { Container, Form, SubmitBtn } from "./styles";
-import { FaGithub, FaPlus, FaSpinner } from "react-icons/fa";
+import { Actions, Container, Form, List, SubmitBtn } from "./styles";
+import { FaGithub, FaPlus, FaSpinner, FaBars, FaTrash } from "react-icons/fa";
 import api from "../../services/api";
+import { Link } from "react-router-dom";
 
 function Main() {
   const [newRepo, setNewRepo] = useState("");
@@ -19,11 +20,11 @@ function Main() {
         setLoading(true);
         try {
           const response = await api.get(`repos/${newRepo}`);
-  
+
           const data = {
             name: response.data.full_name,
           };
-  
+
           setRepositorios([...repositorios, data]);
         } catch(err) {
           console.log(err);
@@ -34,6 +35,11 @@ function Main() {
 
       submit();
     }, [newRepo, repositorios]);
+
+    const handleDelete = useCallback(name => {
+      const find = repositorios.filter(r => r.name !== name)
+      setRepositorios(find);
+    }, [repositorios]);
 
   return (
     <Container>
@@ -58,6 +64,22 @@ function Main() {
           )}
         </SubmitBtn>
       </Form>
+
+      <List>
+        {repositorios.map(repo => (
+          <li key={repo.name}>
+            <span>{repo.name}</span>
+            <Actions>
+              <button onClick={() => handleDelete(repo.name)}>
+                <FaTrash size={18} />
+              </button>
+              <Link to=''>
+                <FaBars size={20} />
+              </Link>
+            </Actions>
+          </li>
+        ))}
+      </List>
     </Container>
   );
 }

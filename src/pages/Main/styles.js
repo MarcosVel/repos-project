@@ -41,7 +41,7 @@ const animate = keyframes`
   to {
     transform: rotate(360deg);
   }
-`
+`;
 
 export const SubmitBtn = styled.button.attrs(props => ({
   type: "submit",
@@ -66,5 +66,39 @@ export const SubmitBtn = styled.button.attrs(props => ({
         animation: ${animate} 2s linear infinite;
       }
     `
+  }
+`;
+
+export const List = styled.ul`
+  list-style: none;
+  margin-top: 16px;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+
+    & + li {
+      border-top: 1px solid #eee;
+    }
+  }
+`;
+
+export const Actions = styled.div`
+  display: flex;
+  gap: 12px;
+
+  button {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
   }
 `;
