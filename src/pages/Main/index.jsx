@@ -100,7 +100,8 @@ function Main() {
               <button onClick={() => handleDelete(repo.name)}>
                 <FaTrash size={18} />
               </button>
-              <Link to=''>
+              {/* encodeURIComponent para poder passar mais de uma / sem ser uma rota */}
+              <Link to={`/repositorio/${encodeURIComponent(repo.name)}`}>
                 <FaBars size={20} />
               </Link>
             </Actions>
