@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Actions, Container, Form, List, SubmitBtn } from "./styles";
-import { FaGithub, FaPlus, FaSpinner, FaBars, FaTrash } from "react-icons/fa";
+import { FaGithub, FaPlus, FaSpinner, FaEye, FaTrash } from "react-icons/fa";
 import api from "../../services/api";
 import { Link } from "react-router-dom";
 
@@ -98,11 +98,11 @@ function Main() {
             <span>{repo.name}</span>
             <Actions>
               <button onClick={() => handleDelete(repo.name)}>
-                <FaTrash size={18} />
+                <FaTrash size={16} />
               </button>
               {/* encodeURIComponent para poder passar mais de uma / sem ser uma rota */}
               <Link to={`/repositorio/${encodeURIComponent(repo.name)}`}>
-                <FaBars size={20} />
+                <FaEye size={20} />
               </Link>
             </Actions>
           </li>
