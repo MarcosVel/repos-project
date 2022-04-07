@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Loading, Owner } from "./styles";
+import { BackButton, Container, Loading, Owner } from "./styles";
 import api from "../../services/api";
 import { FaSpinner } from "react-icons/fa";
+import { RiArrowLeftSLine } from "react-icons/ri";
 
 function Repository() {
   const { repositorio } = useParams();
@@ -31,8 +32,6 @@ function Repository() {
     load();
   }, [repositorio]);
 
-  console.log(repo);
-
   if (loading) {
     return (
       <Loading>
@@ -42,7 +41,11 @@ function Repository() {
   }
 
   return (
-    <Container style={{ color: "white" }}>
+    <Container>
+      <BackButton to='/'>
+        <RiArrowLeftSLine size={28} />
+        Voltar
+      </BackButton>
       <Owner>
         <img src={repo?.owner?.avatar_url} alt={repo?.owner?.login} />
         <h1>{repo?.name}</h1>
