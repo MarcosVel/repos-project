@@ -76,3 +76,31 @@ export const Loading = styled.div`
     }
   `}
 `;
+
+export const IssuesList = styled.ul`
+  margin-top: 32px;
+  list-style: none;
+
+  & > li {
+    display: flex;
+    padding: 16px 8px;
+
+    & > img {
+      max-width: 48px;
+      border-radius: 50%;
+    }
+
+    & > div {
+      flex: 1;
+      margin-left: 12px;
+
+      & > a {
+        /* font-size: 16px; */
+      }
+    }
+
+    & + li {
+      border-top: 1px solid #eee;
+    }
+  }
+`

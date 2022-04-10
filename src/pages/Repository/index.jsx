@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { BackButton, Container, Loading, Owner } from "./styles";
+import { BackButton, Container, IssuesList, Loading, Owner } from "./styles";
 import api from "../../services/api";
 import { FaSpinner } from "react-icons/fa";
 import { RiArrowLeftSLine } from "react-icons/ri";
@@ -42,7 +42,7 @@ function Repository() {
 
   return (
     <Container>
-      <BackButton to='/'>
+      <BackButton to="/">
         <RiArrowLeftSLine size={28} />
         Voltar
       </BackButton>
@@ -51,6 +51,27 @@ function Repository() {
         <h1>{repo?.name}</h1>
         <p>{repo?.description}</p>
       </Owner>
+
+      <IssuesList>
+        {repoIssues.map(issue => (
+          <li key={issue?.id}>
+            <img src={issue?.user?.avatar_url} alt={issue?.user?.login} />
+            <div>
+              <a
+                href={issue?.html_url}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {issue?.title}
+              </a>
+              {issue?.labels?.map(label => (
+                <span key={label?.id}>{label?.name}</span>
+              ))}
+              <p>{issue?.user?.login}</p>
+            </div>
+          </li>
+        ))}
+      </IssuesList>
     </Container>
   );
 }
