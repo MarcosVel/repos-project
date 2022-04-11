@@ -95,7 +95,31 @@ export const IssuesList = styled.ul`
       margin-left: 12px;
 
       & > a {
-        /* font-size: 16px; */
+        font-size: 15px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #222;
+        transition: .2s;
+
+        &:hover {
+          color: #0071db;
+        }
+      }
+
+      & > span {
+        background-color: #222;
+        color: #fff;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 4px 6px;
+        margin: 8px;
+      }
+
+      & > p {
+        margin-top: 8px;
+        font-size: 14px;
+        color: #000;
       }
     }
 
@@ -103,4 +127,4 @@ export const IssuesList = styled.ul`
       border-top: 1px solid #eee;
     }
   }
-`
+`;
