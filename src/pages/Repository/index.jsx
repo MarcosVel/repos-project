@@ -97,15 +97,17 @@ function Repository() {
         ))}
       </IssuesList>
 
-      <Pagination>
-        <button disabled={page < 2} onClick={() => setPage(page - 1)}>
-          <RiArrowLeftSLine size={28} />
-        </button>
-        <span>Página: {page}</span>
-        <button onClick={() => setPage(page + 1)}>
-          <RiArrowRightSLine size={28} />
-        </button>
-      </Pagination>
+      {repoIssues.length !== 0 && (
+        <Pagination>
+          <button disabled={page < 2} onClick={() => setPage(page - 1)}>
+            <RiArrowLeftSLine size={28} />
+          </button>
+          <span>Página: {page}</span>
+          <button onClick={() => setPage(page + 1)}>
+            <RiArrowRightSLine size={28} />
+          </button>
+        </Pagination>
+      )}
     </Container>
   );
 }
