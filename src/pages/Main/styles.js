@@ -95,11 +95,13 @@ export const Actions = styled.div`
     align-items: center;
     background-color: transparent;
     border: none;
+    color: red;
   }
 
   a {
     display: flex;
     align-items: center;
     text-decoration: none;
+    color: blue;
   }
 `;
