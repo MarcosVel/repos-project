@@ -77,8 +77,44 @@ export const Loading = styled.div`
   `}
 `;
 
-export const IssuesList = styled.ul`
+export const TypeIssues = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-top: 32px;
+
+  & > div {
+    display: flex;
+  }
+
+  & button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    transition: all 0.2s;
+    font-weight: bold;
+
+    &:hover {
+      box-shadow: 0 2px 5px #eee;
+    }
+  }
+
+  button + button {
+    margin-left: 8px;
+  }
+
+  .selected {
+    background-color: #000;
+    color: #fff;
+  }
+`;
+
+export const IssuesList = styled.ul`
+  margin-top: 8px;
   list-style: none;
 
   & > li {
@@ -87,6 +123,7 @@ export const IssuesList = styled.ul`
 
     & > img {
       max-width: 48px;
+      max-height: 48px;
       border-radius: 50%;
     }
 

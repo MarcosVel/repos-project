@@ -7,6 +7,7 @@ import {
   Loading,
   Owner,
   Pagination,
+  TypeIssues,
 } from "./styles";
 import api from "../../services/api";
 import { FaSpinner } from "react-icons/fa";
@@ -18,6 +19,7 @@ function Repository() {
   const [repoIssues, setRepoIssues] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const [typeIssues, setTypeIssues] = useState("open");
 
   useEffect(() => {
     async function load() {
@@ -25,7 +27,7 @@ function Repository() {
         api.get(`/repos/${repositorio}`),
         api.get(`/repos/${repositorio}/issues`, {
           params: {
-            state: "open",
+            state: typeIssues,
             per_page: 5,
           },
         }),
@@ -38,13 +40,13 @@ function Repository() {
     }
 
     load();
-  }, [repositorio]);
+  }, [repositorio, typeIssues]);
 
   useEffect(() => {
     async function loadIssue() {
       const response = await api.get(`/repos/${repositorio}/issues`, {
         params: {
-          state: "open",
+          state: typeIssues,
           page: page,
           per_page: 5,
         },
@@ -54,7 +56,20 @@ function Repository() {
     }
 
     loadIssue();
-  }, [page, repositorio]);
+  }, [page, repositorio, typeIssues]);
+
+  const handleFilter = type => {
+    switch (type) {
+      case "open":
+        return setTypeIssues("open");
+      case "closed":
+        return setTypeIssues("closed");
+      case "all":
+        return setTypeIssues("all");
+      default:
+        return "";
+    }
+  };
 
   if (loading) {
     return (
@@ -76,37 +91,63 @@ function Repository() {
         <p>{repo?.description}</p>
       </Owner>
 
-      <IssuesList>
-        {repoIssues.map(issue => (
-          <li key={issue?.id}>
-            <img src={issue?.user?.avatar_url} alt={issue?.user?.login} />
-            <div>
-              <a
-                href={issue?.html_url}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {issue?.title}
-              </a>
-              {issue?.labels?.map(label => (
-                <span key={label?.id}>{label?.name}</span>
-              ))}
-              <p>{issue?.user?.login}</p>
-            </div>
-          </li>
-        ))}
-      </IssuesList>
-
       {repoIssues.length !== 0 && (
-        <Pagination>
-          <button disabled={page < 2} onClick={() => setPage(page - 1)}>
-            <RiArrowLeftSLine size={28} />
-          </button>
-          <span>Página: {page}</span>
-          <button onClick={() => setPage(page + 1)}>
-            <RiArrowRightSLine size={28} />
-          </button>
-        </Pagination>
+        <>
+          <TypeIssues>
+            <h2>Issues:</h2>
+            <div>
+              <button
+                className={typeIssues === "open" ? "selected" : ""}
+                onClick={() => handleFilter("open")}
+              >
+                Open
+              </button>
+              <button
+                className={typeIssues === "closed" ? "selected" : ""}
+                onClick={() => handleFilter("closed")}
+              >
+                Closed
+              </button>
+              <button
+                className={typeIssues === "all" ? "selected" : ""}
+                onClick={() => handleFilter("all")}
+              >
+                All
+              </button>
+            </div>
+          </TypeIssues>
+
+          <IssuesList>
+            {repoIssues.map(issue => (
+              <li key={issue?.id}>
+                <img src={issue?.user?.avatar_url} alt={issue?.user?.login} />
+                <div>
+                  <a
+                    href={issue?.html_url}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {issue?.title}
+                  </a>
+                  {issue?.labels?.map(label => (
+                    <span key={label?.id}>{label?.name}</span>
+                  ))}
+                  <p>{issue?.user?.login}</p>
+                </div>
+              </li>
+            ))}
+          </IssuesList>
+
+          <Pagination>
+            <button disabled={page < 2} onClick={() => setPage(page - 1)}>
+              <RiArrowLeftSLine size={28} />
+            </button>
+            <span>Página: {page}</span>
+            <button onClick={() => setPage(page + 1)}>
+              <RiArrowRightSLine size={28} />
+            </button>
+          </Pagination>
+        </>
       )}
     </Container>
   );
